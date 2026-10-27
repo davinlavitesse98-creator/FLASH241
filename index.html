@@ -1,123 +1,48 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>FLASH241</title>
+<title>FLASH241 - Réseau Gabonais</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{background:#0a0a0a;color:#fff;font-family:'Inter',sans-serif;max-width:480px;margin:0 auto;min-height:100vh;position:relative}
+body{background:#0a0a0a;color:#fff;font-family:'Inter',sans-serif;max-width:480px;margin:0 auto;min-height:100vh}
 .top{position:sticky;top:0;z-index:50;background:#0a0a0a;display:flex;justify-content:space-between;align-items:center;padding:12px 15px;border-bottom:1px solid #1a1a1a}
-.logo{font-weight:900;font-size:22px;user-select:none}.logo span{color:#FFD600}
-.view{display:none;padding-bottom:70px}.view.active{display:block}
+.logo{font-weight:900;font-size:22px;user-select:none;cursor:pointer}.logo span{color:#FFD600}
+.view{display:none;padding-bottom:80px}.view.active{display:block}
 .card{background:#151515;border:1px solid #1e1e1e;border-radius:16px;padding:14px;margin:10px}
-.btn{padding:12px 18px;border-radius:100px;border:none;font-weight:900;cursor:pointer;width:100%;-webkit-tap-highlight-color:transparent}.btn:active{transform:scale(0.98)}.btn-yellow{background:#FFD600;color:#000}.btn-dark{background:#222;color:#fff}
-.avatar{width:40px;height:40px;border-radius:50%;background:#FFD600;color:#000;display:flex;align-items:center;justify-content:center;font-weight:900}
+.btn{padding:12px 18px;border-radius:100px;border:none;font-weight:900;cursor:pointer;width:100%}.btn:active{transform:scale(0.98)}.btn-yellow{background:#FFD600;color:#000}.btn-dark{background:#222;color:#fff}
+.avatar{width:40px;height:40px;border-radius:50%;background:#FFD600;color:#000;display:flex;align-items:center;justify-content:center;font-weight:900;background-size:cover;background-position:center}
 .input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #333;background:#111;color:#fff;outline:none;margin-top:6px}
 .bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#0a0a0a;border-top:1px solid #1a1a1a;display:flex;justify-content:space-around;padding:8px 0;z-index:60}.bottom div{text-align:center;font-size:10px;color:#666;flex:1;cursor:pointer;padding:6px}.bottom div.active{color:#FFD600}
 .badge-live{background:#ff0033;color:#fff;font-size:10px;padding:3px 8px;border-radius:20px;font-weight:900;margin-left:6px}
 .badge-lock{background:#333;color:#888;font-size:10px;padding:3px 8px;border-radius:20px}
-.post-action{display:flex;gap:12px;margin-top:10px;font-size:13px}
-.post-action span{cursor:pointer;padding:6px 10px;border-radius:20px;background:#1a1a1a}
-.post-action span:active{background:#FFD600;color:#000}
-.progress{height:6px;background:#222;border-radius:10px;overflow:hidden;margin-top:6px}.progress-bar{height:100%;background:#FFD600;transition:.3s}
+.post-action{display:flex;gap:12px;margin-top:10px;font-size:13px}.post-action span{cursor:pointer;padding:6px 10px;border-radius:20px;background:#1a1a1a}
+.progress{height:6px;background:#222;border-radius:10px;overflow:hidden;margin-top:6px}.progress-bar{height:100%;background:#FFD600}
 .onboard{position:fixed;inset:0;background:#000;z-index:99;display:flex;flex-direction:column;padding:20px;justify-content:center;text-align:center}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:100;display:none;align-items:flex-end;justify-content:center;padding:0}.modal.active{display:flex}.modal-box{background:#181818;border-radius:20px 20px 0 0;padding:18px;width:100%;max-height:85vh;overflow-y:auto;border-top:1px solid #333;animation:slideUp .25s ease}@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.option-btn{width:100%;text-align:left;padding:14px 12px;background:#1e1e1e;border:none;color:#fff;border-radius:12px;margin-top:8px;font-size:14px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}.option-btn.danger{background:#2a1010;color:#ff4444}.option-btn:active{background:#333}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:100;display:none;align-items:flex-end;justify-content:center}.modal.active{display:flex}.modal-box{background:#181818;border-radius:20px 20px 0 0;padding:18px;width:100%;max-height:85vh;overflow-y:auto;border-top:1px solid #333}
+.option-btn{width:100%;text-align:left;padding:14px 12px;background:#1e1e1e;border:none;color:#fff;border-radius:12px;margin-top:8px;font-size:14px;display:flex;justify-content:space-between;align-items:center}.option-btn.danger{background:#2a1010;color:#ff4444}
+.setting-row{display:flex;justify-content:space-between;align-items:center;padding:14px;background:#151515;border-radius:12px;margin-top:8px}
 </style>
 </head>
 <body>
 
 <div id="onboard" class="onboard">
 <h1 style="font-size:36px;font-weight:900">FLASH<span style="color:#FFD600">241</span></h1>
-<p style="color:#888;margin-top:6px">Comme WhatsApp - Nom + Numéro</p>
+<p style="color:#888;margin-top:6px">Comme WhatsApp - Gabon d'abord 🇬🇦</p>
 <div style="text-align:left;margin-top:20px">
-<label style="font-size:12px;color:#aaa">Nom</label>
-<input id="regName" class="input" placeholder="Ex: Davin Noctambule">
-<label style="font-size:12px;color:#aaa;display:block;margin-top:10px">Numéro +241</label>
-<input id="regNum" class="input" placeholder="24165538087" type="tel">
-<button class="btn btn-yellow" style="margin-top:18px" onclick="register()">ENTRER DANS FLASH241 →</button>
+<label style="font-size:12px;color:#aaa">Nom</label><input id="regName" class="input" placeholder="Ex: Davin Noctambule">
+<label style="font-size:12px;color:#aaa;display:block;margin-top:10px">Numéro +241</label><input id="regNum" class="input" placeholder="24165538087" type="tel">
+<button class="btn btn-yellow" style="margin-top:18px" onclick="register()">ENTRER →</button>
+<p style="font-size:10px;color:#555;margin-top:10px;text-align:center">Code DIEU caché : tape 241241 ou 5 clics sur logo</p>
 </div>
 </div>
 
-<div class="top"><div class="logo">FLASH<span>241</span></div><div id="myNumDisplay" style="font-size:11px;color:#888"></div></div>
+<div class="top"><div class="logo" id="logoBtn">FLASH<span>241</span></div><div style="display:flex;gap:8px"><span style="font-size:20px" onclick="switchView('profil',document.querySelectorAll('.bottom div')[2])">⚙️</span><span id="myNumDisplay" style="font-size:11px;color:#888;align-self:center"></span></div></div>
 
 <div id="view-home" class="view active">
-<div class="card" style="background:linear-gradient(90deg,#FFD600,#ffb700);color:#000;border:none;display:flex;justify-content:space-between;align-items:center"><div><b>📩 Inviter tes contacts</b><br><span style="font-size:11px">+10 Flash par ami - Numéro caché</span></div><button class="btn btn-dark" style="width:auto;padding:8px 14px;font-size:12px" onclick="invite()">INVITER</button></div>
-<div style="padding:10px 15px;font-weight:800;display:flex;justify-content:space-between">🔥 Chaînes d'Actu <span style="font-size:11px;color:#FFD600" onclick="createChannel()">+ Créer</span></div>
-<div id="feed"></div>
-</div>
-
-<div id="view-chat" class="view">
-<div style="padding:12px 15px;font-weight:900;display:flex;justify-content:space-between">Chats <span style="font-size:12px;color:#FFD600" onclick="newChat()">+ Nouveau</span></div>
-<div id="chatList"></div>
-</div>
-
-<div id="view-profil" class="view">
-<div style="padding:20px;text-align:center"><div id="av" class="avatar" style="width:80px;height:80px;font-size:32px;margin:0 auto">D</div><h2 id="pName" style="margin-top:10px"></h2><p id="pNum" style="color:#888;font-size:13px"></p><button class="btn btn-dark" style="margin-top:10px" onclick="logout()">🚪 Changer de numéro</button></div>
-</div>
-
-<div class="bottom"><div class="active" onclick="switchView('home',this)"><div style="font-size:20px">🏠</div>Accueil</div><div onclick="switchView('chat',this)"><div style="font-size:20px">💬</div>FlashChat</div><div onclick="switchView('profil',this)"><div style="font-size:20px">👤</div>Profil</div></div>
-
-<!-- MENU 3 POINTS DU POST -->
-<div id="postMenu" class="modal" onclick="if(event.target==this)closePostMenu()"><div class="modal-box"><div style="width:40px;height:4px;background:#333;border-radius:10px;margin:0 auto 12px"></div><h3 style="margin-bottom:8px">Options</h3>
-<button class="option-btn" onclick="doReport()"><span>🚩 Signaler</span><span>›</span></button>
-<button class="option-btn" onclick="doBlock()"><span>🚫 Bloquer l'utilisateur</span><span>›</span></button>
-<button class="option-btn danger" onclick="doDeletePost()"><span>🗑️ Effacer cette publication</span><span>›</span></button>
-<button class="option-btn" onclick="doDeleteChat()"><span>💬 Effacer la conversation</span><span>›</span></button>
-<button class="option-btn" onclick="closePostMenu()" style="background:#222;justify-content:center;margin-top:12px">Annuler</button>
-</div></div>
-
-<!-- MENU SIGNALER RAISON -->
-<div id="reportMenu" class="modal" onclick="if(event.target==this)closeReportMenu()"><div class="modal-box"><div style="width:40px;height:4px;background:#333;border-radius:10px;margin:0 auto 12px"></div><h3>Pourquoi signaler ?</h3>
-<button class="option-btn danger" onclick="submitReport('nudite')">🟥 Nudité = BAN DEFINITIF</button>
-<button class="option-btn" onclick="submitReport('insulte')">🟨 Insulte / Menace = BAN 3H</button>
-<button class="option-btn danger" onclick="submitReport('illicite')">⬛ Arnaque / Vente illicite = BAN après 2 signalements</button>
-<button class="option-btn" onclick="closeReportMenu()" style="background:#222;justify-content:center;margin-top:12px">Annuler</button>
-</div></div>
-
-<!-- MODAL CHAINE -->
-<div id="channelModal" class="modal" onclick="if(event.target==this)this.classList.remove('active')"><div class="modal-box"><div style="width:40px;height:4px;background:#333;border-radius:10px;margin:0 auto 12px"></div><h3 id="cTitle"></h3><div id="cBody" style="margin-top:10px"></div><button class="btn btn-dark" style="margin-top:12px" onclick="document.getElementById('channelModal').classList.remove('active')">Fermer</button></div></div>
-
-<script>
-let user=JSON.parse(localStorage.getItem('f241_user')||'null');
-let channels=JSON.parse(localStorage.getItem('f241_channels')||'[{"id":"1","name":"Noctambule TV 👑","owner":"Noctambule","ownerNum":"+24165538087","followers":2847,"admins":[{"name":"Noctambule","num":"+24165538087","role":"owner"}],"text":"FLASH241 c\'est chez nous ! Plus de censure étrangère. Ici on applique nos règles : nudité = ban, arnaque = ban définitif. 🇬🇦","likes":1200,"blocked":[]},{"id":"2","name":"L\'Oiseau Rare","owner":"L\'Oiseau","ownerNum":"+24162223344","followers":1203,"admins":[{"name":"L\'Oiseau","num":"+24162223344","role":"owner"}],"text":"Libreville en direct, on y est !","likes":450,"blocked":[]}]');
-let chats=JSON.parse(localStorage.getItem('f241_chats')||'[]');
-let reports=JSON.parse(localStorage.getItem('f241_reports')||'[]');
-let currentPost=null;
-
-function init(){if(!user){document.getElementById('onboard').style.display='flex';return;}document.getElementById('onboard').style.display='none';document.getElementById('myNumDisplay').innerText=user.num;document.getElementById('pName').innerText=user.name;document.getElementById('pNum').innerText=user.num;document.getElementById('av').innerText=user.name[0].toUpperCase();render();}
-function register(){let n=document.getElementById('regName').value.trim(),m=document.getElementById('regNum').value.trim();if(n.length<2||m.length<8){alert('Nom et numéro obligatoires');return;}if(!m.startsWith('+'))m='+'+m;user={name:n,num:m};localStorage.setItem('f241_user',JSON.stringify(user));init();}
-function logout(){if(confirm('Changer de numéro ?')){localStorage.removeItem('f241_user');location.reload();}}
-function switchView(v,el){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));document.getElementById('view-'+v).classList.add('active');document.querySelectorAll('.bottom div').forEach(x=>x.classList.remove('active'));el.classList.add('active');}
-
-function render(){let f=document.getElementById('feed');f.innerHTML='';channels.forEach(ch=>{if(ch.blocked&&ch.blocked.includes(user.num))return;let pct=Math.min(100,ch.followers/3000*100);let can=ch.followers>=3000;f.innerHTML+='<div class=card id="post-'+ch.id+'"><div style="display:flex;justify-content:space-between;align-items:center"><div style="display:flex;gap:10px;align-items:center"><div class=avatar>'+ch.name[0]+'</div><div><b>'+ch.name+'</b> '+(can?'<span class=badge-live>🔴 LIVE</span>':'<span class=badge-lock>🔒 LIVE à 3k</span>')+'<br><span style="font-size:11px;color:#888">Libreville • 5 min • '+ch.followers+' followers</span></div></div><div style="font-size:20px;cursor:pointer;padding:8px" onclick="openPostMenu(\''+ch.id+'\')">⋯</div></div><div style="margin-top:10px;font-size:14px;line-height:1.4">'+ch.text+'</div><div class=progress><div class=progress-bar style=width:'+pct+'%></div></div><span style=font-size:10px;color:#666>'+ch.followers+' / 3000 pour LIVE</span><div class=post-action><span onclick="like(\''+ch.id+'\')">💛 '+ch.likes+'</span><span onclick="invite()">📩 Inviter</span><span onclick="openPostMenu(\''+ch.id+'\')">🚩 Signaler</span></div></div>';});localStorage.setItem('f241_channels',JSON.stringify(channels));renderChats();}
-function renderChats(){let cl=document.getElementById('chatList');cl.innerHTML=chats.length?'' : '<p style="color:#666;text-align:center;margin-top:20px">Aucune conversation</p>';chats.forEach((c,i)=>{cl.innerHTML+='<div class=card style="display:flex;justify-content:space-between;align-items:center"><div><b>'+c.name+'</b><br><span style="font-size:12px;color:#888">'+c.last+'</span></div><div style="display:flex;gap:8px"><span style="padding:8px;cursor:pointer" onclick="openChat(\''+c.id+'\')">💬</span><span style="padding:8px;cursor:pointer" onclick="deleteChat(\''+c.id+'\')">🗑️</span></div></div>';});}
-
-function createChannel(){let name=prompt('Nom de ta chaîne ?');if(!name)return;let txt=prompt('Premier post de ta chaîne ?');channels.unshift({id:Date.now().toString(),name:name,owner:user.name,ownerNum:user.num,followers:10,admins:[{name:user.name,num:user.num,role:'owner'}],text:txt||'Bienvenue sur '+name+' ! 🇬🇦',likes:0,blocked:[]});render();}
-function openPostMenu(id){currentPost=id;document.getElementById('postMenu').classList.add('active');}
-function closePostMenu(){document.getElementById('postMenu').classList.remove('active');}
-function closeReportMenu(){document.getElementById('reportMenu').classList.remove('active');}
-
-function doReport(){closePostMenu();document.getElementById('reportMenu').classList.add('active');}
-function doBlock(){let ch=channels.find(c=>c.id===currentPost);if(!confirm('Bloquer '+ch.name+' ? Tu ne verras plus ses posts.'))return;ch.blocked=ch.blocked||[];if(!ch.blocked.includes(user.num))ch.blocked.push(user.num);let u=chats.find(x=>x.ownerNum===ch.ownerNum);if(u){u.blocked=true;}alert('✅ '+ch.name+' bloqué');closePostMenu();render();}
-function doDeletePost(){let ch=channels.find(c=>c.id===currentPost);if(ch.ownerNum!==user.num&&!confirm('Effacer cette publication de ton fil ?')){closePostMenu();return;}if(ch.ownerNum===user.num){if(!confirm('Supprimer définitivement ta chaîne '+ch.name+' ?')){closePostMenu();return;}channels=channels.filter(c=>c.id!==currentPost);}else{ch.blocked=ch.blocked||[];ch.blocked.push(user.num);}closePostMenu();render();alert('🗑️ Publication effacée');}
-function doDeleteChat(){if(!currentPost){alert('Choisis une conversation');closePostMenu();return;}if(confirm('Effacer la conversation avec '+channels.find(c=>c.id===currentPost).name+' ? Comme WhatsApp')){channels=channels.filter(c=>c.id!==currentPost);closePostMenu();render();}}
-function deleteChat(id){if(confirm('Effacer cette conversation ?')){chats=chats.filter(c=>c.id!==id);localStorage.setItem('f241_chats',JSON.stringify(chats));renderChats();}}
-
-function submitReport(reason){let ch=channels.find(c=>c.id===currentPost);reports.unshift({post:ch.name,reason:reason,user:user.name,date:new Date().toLocaleString()});localStorage.setItem('f241_reports',JSON.stringify(reports));closeReportMenu();closePostMenu();if(reason==='nudite'){alert('🚩 Signalement NUDITÉ envoyé → BAN DEFINITIF appliqué (règle FLASH241)');channels=channels.filter(c=>c.id!==currentPost);render();}else if(reason==='insulte'){alert('🚩 Signalement INSULTE → Utilisateur BAN 3H');}else{alert('🚩 Signalement ARNAQUE → 1er avertissement. Au 2ème signalement BAN DEFINITIF');}}
-
-function like(id){let ch=channels.find(c=>c.id===id);ch.likes++;render();}
-function openChannel(id){let ch=channels.find(c=>c.id===id);let can=ch.followers>=3000;let isOwner=ch.ownerNum===user.num;let admins=ch.admins.map(a=>{let display=isOwner||a.num===user.num?a.name+' • '+a.num:a.name+' • numéro caché';return '<div style="background:#111;padding:8px;border-radius:8px;margin-top:6px">'+display+' '+(a.role==='owner'?'👑 Proprio':'🛡️ Admin')+'</div>'}).join('');document.getElementById('cTitle').innerHTML=ch.name+' '+(can?'<span class=badge-live>🔴 LIVE</span>':'<span class=badge-lock>🔒 à 3k</span>');document.getElementById('cBody').innerHTML='<p style="font-size:12px;color:#888">'+ch.followers+' / 3000 followers pour LIVE - Numéros cachés sauf contacts</p><div class=progress style="margin:8px 0"><div class=progress-bar style=width:'+Math.min(100,ch.followers/3000*100)+'%></div></div>'+(isOwner?'<button class="btn btn-yellow" style="margin-top:8px" onclick="addAdmin(\''+id+'\')">+ Nommer admin</button><button class="btn btn-dark" style="margin-top:6px" onclick="boost(\''+id+'\')">🚀 +1000 followers (test LIVE)</button>':'')+'<div style="margin-top:10px"><b>Admins:</b>'+admins+'</div><div style="margin-top:12px;display:flex;gap:6px"><button class="btn btn-dark" style="flex:1" onclick="follow(\''+id+'\')">❤️ Suivre</button>'+(can?'<button class="btn btn-yellow" style="flex:1">🔴 LANCER LIVE</button>':'<button class="btn btn-dark" style="flex:1;opacity:.5">🔒 LIVE à 3k</button>')+'</div>';document.getElementById('channelModal').classList.add('active');}
-function addAdmin(id){let ch=channels.find(c=>c.id===id);let n=prompt('Nom admin ?');let num=prompt('Numéro ? +241...');if(!n||!num)return;if(!num.startsWith('+'))num='+'+num;ch.admins.push({name:n,num:num,role:'admin'});render();openChannel(id);}
-function follow(id){let ch=channels.find(c=>c.id===id);ch.followers++;render();openChannel(id);}
-function boost(id){let ch=channels.find(c=>c.id===id);ch.followers+=1000;render();openChannel(id);if(ch.followers>=3000)alert('🎉 3k atteint ! LIVE débloqué !');}
-function newChat(){let n=prompt('Nom du contact ?');if(!n)return;chats.unshift({id:Date.now().toString(),name:n,last:'Nouvelle conversation',ownerNum:'+24100000000'});localStorage.setItem('f241_chats',JSON.stringify(chats));renderChats();switchView('chat',document.querySelectorAll('.bottom div')[1]);}
-function openChat(id){alert('Chat avec '+chats.find(c=>c.id===id).name+' - Bientôt messages photos vidéos stickers !');}
-function invite(){let t='Rejoins FLASH241 🇬🇦 '+location.href;if(navigator.share)navigator.share({text:t});else window.open('https://wa.me/?text='+encodeURIComponent(t));}
-init();
-</script>
-</body>
-</html>
+<div class="card" style="background:linear-gradient(90deg,#FFD600,#ffb700);color:#000;border:none;display:flex;justify-content:space-between;align-items:center"><div><b>📩 Inviter tes contacts</b><br><span style="font-size:11px">+10 Flash - Numéro caché</span></div><button class="btn btn-dark" style="width:auto;padding:8px 14px;font-size:12px" onclick="invite()">INVITER</button></div>
+<div style="padding:0 15px;margin-top:10px;display:flex;gap:8px"><input id="postInput" class="input" style="margin-top:0" placeholder="Quoi de neuf ? Tape 241241 pour mode Dieu" oninput="checkGodCode(this)"><button class="btn btn-yellow" style="width:auto;padding:10px 16px" onclick="quickPost()">POST</button></div>
+<div style="display:flex;gap:8px;padding:10px 15px"><button class="btn btn-dark" style="flex:1;font-size:12px" onclick="createChannel('Groupe')">👥 Groupe</button><button class="btn btn-dark" style="flex:1;font-size:12px" onclick="createChannel('Communauté')">🌍 Communauté</button><button class="btn btn-dark" style="flex:1;font-size:12px" onclick="createChannel('Chaîne')">📺 Chaîne</button></div>
+<div style="padding:0 15px;font-weight:800;display:flex;justify-content:space-between">🔥 Chaînes d'Actu <span style="font-size:
