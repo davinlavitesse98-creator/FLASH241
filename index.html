@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>FLASH241 - Réseau Social Gabonais</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{background:#0f0f0f;color:#fff;font-family:'Inter',sans-serif;max-width:480px;margin:0 auto;min-height:100vh;position:relative}
+.top{position:sticky;top:0;z-index:50;background:#0f0f0f;display:flex;justify-content:space-between;align-items:center;padding:12px 15px;border-bottom:1px solid #222}
+.logo{font-weight:900;font-size:22px;letter-spacing:-1px;cursor:pointer;user-select:none}.logo span{color:#FFD600}
+.view{display:none}.view.active{display:block}
+.card{background:#151515;border:1px solid #222;border-radius:16px;padding:15px;margin-bottom:12px}
+.btn{padding:14px 20px;border-radius:100px;border:none;font-weight:900;cursor:pointer;width:100%}.btn-yellow{background:#FFD600;color:#000}.btn-dark{background:#222;color:#fff}
+.avatar{width:40px;height:40px;border-radius:50%;background:#FFD600;color:#000;display:flex;align-items:center;justify-content:center;font-weight:900}
+.create{background:#181818;padding:12px 15px;display:flex;gap:10px;align-items:center;border-bottom:8px solid #0a0a0a}.create input{flex:1;background:#242424;border:none;padding:12px 16px;border-radius:25px;color:#fff;outline:none}
+.post{background:#181818;margin-bottom:8px;padding:12px 15px;position:relative}.post-text{margin:12px 0;font-size:14px;line-height:1.4}.post-img{border-radius:12px;background:#222;height:200px;display:flex;align-items:center;justify-content:center;font-size:50px;margin-bottom:10px}
+.actions{display:flex;justify-content:space-between;border-top:1px solid #222;padding-top:10px;margin-top:10px}.actions div{font-size:13px;color:#aaa;display:flex;gap:6px;font-weight:600;cursor:pointer}
+.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#0f0f0f;border-top:1px solid #222;display:flex;justify-content:space-around;padding:10px 0;z-index:60}.bottom div{text-align:center;font-size:10px;color:#666;cursor:pointer;flex:1}.bottom div.active{color:#FFD600}.bottom div i{font-size:22px;display:block;font-style:normal}
+.admin-panel{position:fixed;inset:0;background:#080808;z-index:150;display:none;overflow-y:auto;padding:15px}.admin-panel.active{display:block}
+.switch{width:48px;height:28px;background:#333;border-radius:20px;position:relative;cursor:pointer}.switch.on{background:#FFD600}.switch::after{content:'';position:absolute;width:22px;height:22px;background:#fff;border-radius:50%;top:3px;left:3px;transition:.2s}.switch.on::after{left:23px}
+.premium-lock{position:fixed;inset:0;background:#000;z-index:300;display:none;flex-direction:column;align-items:center;justify-content:center;padding:25px;text-align:center}.premium-lock.active{display:flex}
+.premium-lock input{width:100%;padding:16px;border-radius:12px;border:2px solid #FFD600;background:#111;color:#fff;text-align:center;font-size:18px;letter-spacing:3px;margin:15px 0;outline:none}
+#callModal{position:fixed;inset:0;background:#000;z-index:200;display:none;flex-direction:column;align-items:center;justify-content:center;padding:20px}#callModal.active{display:flex}
+.code-row{display:flex;justify-content:space-between;background:#1e1e1e;padding:10px;border-radius:10px;margin-top:8px;font-family:monospace;font-size:13px;align-items:center}
+.ban-banner{position:fixed;top:0;left:0;right:0;z-index:400;background:#ff0033;color:#fff;padding:15px;text-align:center;display:none}.ban-banner.active{display:block}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:250;display:none;align-items:center;justify-content:center;padding:15px}.modal.active{display:flex}.modal-box{background:#181818;border-radius:18px;padding:18px;width:100%;max-height:90vh;overflow-y:auto;border:1px solid #333}
+.report-reason{width:100%;padding:10px;border-radius:8px;background:#111;border:1px solid #333;color:#fff;margin-top:8px}
+</style>
+</head>
+<body>
+
+<div id="banBanner" class="ban-banner"></div>
+
+<div class="top"><div class="logo" id="logoSecret">FLASH<span>241</span></div><div style="font-size:20px">🔍 💬</div></div>
+
+<div id="view-home" class="view active">
+<div class="card" style="margin:12px;display:flex;gap:10px;align-items:center;background:linear-gradient(90deg,#FFD600,#ffb700);color:#000;border:none"><div style="font-size:24px">📩</div><div style="flex:1"><b>Inviter tes contacts</b><br><span style="font-size:11px">Gagne +10 Flash pour chaque ami</span></div><button class="btn btn-dark" style="width:auto;padding:8px 14px;font-size:12px" onclick="inviteContacts()">INVITER</button></div>
+<div class="create"><div class="avatar">D</div><input id="postInput" placeholder="Quoi de neuf ? Tape 241241 pour admin secret"></div>
+<div class="post" data-user="Noctambule TV"><div style="position:absolute;right:10px;top:10px;font-size:18px;cursor:pointer" onclick="openReport('Noctambule TV','post')">⋯</div><div style="display:flex;gap:10px;align-items:center"><div class="avatar" style="background:#fff">N</div><div><b>Noctambule TV 👑</b><br><span style="font-size:11px;color:#888">Libreville • 5 min</span></div></div><div class="post-text">FLASH241 c'est chez nous ! Plus de censure étrangère. Ici on applique nos règles : nudité = ban, arnaque = ban définitif. 🇬🇦</div><div class="post-img">🚀</div><div class="actions"><div>💛 1.2k</div><div onclick="inviteContacts()">↗️ Inviter</div><div onclick="openReport('Noctambule TV','post')">🚩 Signaler</div></div></div>
+<div class="post" data-user="L'Oiseau"><div style="position:absolute;right:10px;top:10px;font-size:18px;cursor:pointer" onclick="openReport('L\'Oiseau','post')">⋯</div><div style="display:flex;gap:10px;align-items:center"><div class="avatar">L</div><div><b>L'Oiseau Rare</b><br><span style="font-size:11px;color:#888">Franceville • 23 min</span></div></div><div class="post-text">Qui est chaud pour un live ce soir ?</div><div class="actions"><div>🤍 892</div><div onclick="inviteContacts()">↗️ Inviter</div><div onclick="openReport('L\'Oiseau','post')">🚩 Signaler</div></div></div>
+</div>
+
+<div id="view-chat" class="view">
+<div style="padding:12px 15px;font-weight:900;display:flex;justify-content:space-between"><span>FlashChat • Appels vocaux/vidéos</span><span style="color:#FFD600;font-size:12px" onclick="inviteContacts()">+ Inviter</span></div>
+<div style="padding:10px 15px;display:flex;gap:8px"><div style="background:#181818;padding:8px 12px;border-radius:20px;font-size:12px">📢 Chaînes</div><div style="background:#181818;padding:8px 12px;border-radius:20px;font-size:12px">👥 Groupes</div><div style="background:#FFD600;color:#000;padding:8px 12px;border-radius:20px;font-size:12px">💬 Privés</div></div>
+<div class="card" style="margin:10px;display:flex;gap:12px;align-items:center"><div class="avatar">L</div><div style="flex:1"><b>L'Oiseau Rare</b><br><span style="font-size:12px;color:#888">En ligne</span></div><div style="display:flex;gap:8px"><button style="width:36px;height:36px;border-radius:50%;border:none" onclick="startCall('L\'Oiseau','vocal')">📞</button><button style="width:36px;height:36px;border-radius:50%;border:none;background:#FFD600" onclick="startCall('L\'Oiseau','video')">🎥</button><button style="width:36px;height:36px;border-radius:50%;border:none;background:#222;color:#fff" onclick="openReport('L\'Oiseau','chat')">🚩</button></div></div>
+</div>
+
+<div id="view-profil" class="view">
+<div style="padding:20px;text-align:center"><div class="avatar" style="width:80px;height:80px;font-size:30px;margin:0 auto">D</div><h2 style="margin-top:10px">Empereur Davin</h2><p style="color:#888;font-size:13px">Admin • Créateur</p>
+<button class="btn btn-yellow" style="margin-top:12px" onclick="inviteContacts()">📩 INVITER MES CONTACTS WHATSAPP</button>
+<button class="btn btn-dark" style="margin-top:8px" onclick="openTerms()">📜 Conditions d'utilisation & Bannissement</button>
+</div>
+<div style="padding:0 15px">
+<div class="card"><b>🔗 Connecter nouvel appareil (Dev)</b><p style="font-size:11px;color:#888;margin:6px 0">Pour développeurs qui veulent apporter leur création</p><div style="text-align:center;background:#111;padding:10px;border-radius:12px;border:1px dashed #FFD600">ID: <span id="deviceId">FLASH-XXXX</span></div><button class="btn btn-dark" style="margin-top:8px;padding:10px" onclick="genDeviceId()">Générer QR</button></div>
+</div>
+</div>
+
+<div class="bottom"><div class="active" onclick="switchView('home',this)"><i>🏠</i>Accueil</div><div onclick="switchView('chat',this)"><i>💬</i>FlashChat</div><div onclick="switchView('profil',this)"><i>👤</i>Profil</div></div>
+
+<!-- MODAL REPORT -->
+<div id="reportModal" class="modal"><div class="modal-box"><h3>🚩 Signaler ce contenu / utilisateur</h3><p style="font-size:12px;color:#888;margin-top:6px" id="reportTarget">Utilisateur: ...</p><select id="reportReason" class="report-reason"><option value="">Choisir la raison...</option><option value="nudite">🟥 Envoi d'images nudiques dans chaîne/groupe (BAN DEFIN
